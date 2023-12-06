@@ -56,18 +56,30 @@ export default class App {
 			resolution: 1,
 			canvas: canvas,
 			context: context,
+			// render: {
+			// 	antialias: true,
+			// 	pixelArt: false,
+			// 	autoResize: false,
+			// 	roundPixels: false,
+			// 	transparent: false,
+			// 	clearBeforeRender: true,
+			// 	premultipliedAlpha: true,
+			// 	preserveDrawingBuffer: false,
+			// 	failIfMajorPerformanceCaveat: false,
+			// 	powerPreference: 'high-performance'
+			// },
 			render: {
-				antialias: true,
+				antialias: false,
 				pixelArt: false,
 				autoResize: false,
-				roundPixels: false,
+				roundPixels: true,
 				transparent: false,
 				clearBeforeRender: true,
-				premultipliedAlpha: true,
+				premultipliedAlpha: false,
 				preserveDrawingBuffer: false,
-				failIfMajorPerformanceCaveat: false,
-				powerPreference: 'high-performance'
-			},
+				failIfMajorPerformanceCaveat: true,
+				powerPreference: 'low-power'
+			},			
 			backgroundColor: 0x1099bb,
 			fps: {
 				min: 1,
