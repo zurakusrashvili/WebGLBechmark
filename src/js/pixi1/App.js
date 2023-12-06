@@ -70,6 +70,7 @@ export default class App {
 		this._stats = stats;
 
 		const RendererType = PIXI.utils.isWebGLSupported() ? PIXI.Renderer : PIXI.CanvasRender;
+		PIXI.settings.PREFER_ENV = PIXI.ENV.WEBGL;
 		if (!RendererType) {
 			return window.alert("No valid renderer found");
 		}
