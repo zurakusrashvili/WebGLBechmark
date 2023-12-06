@@ -13,23 +13,23 @@ export default class GraphicsComplex extends IScene {
 	_create(objectCount) {
 		for (let i = this._children.length; i < objectCount; ++i) {
 			const color = this._colors[this._children.length % this._colors.length];
-			const graphic = this._app.game.add.graphics();
-			graphic.beginFill(color);
+			const graphic = this._app.scene.add.graphics({ fillStyle: { color } });
 
 			const type = this._children.length % 4;
 			if (type === 0) {
-				graphic.drawPolygon(this._drawStar(0, 0, 5, 30, 20, 1));
+				const polygon = this._drawStar(0, 0, 5, 30, 20, 1);
+				graphic.fillPoints(polygon.points, true);
 			} else if (type === 1) {
-				graphic.drawPolygon([-15, -30, 15, 15, -30, 15]);
+				graphic.fillTriangleShape(new Phaser.Geom.Triangle(-15, -30, 15, 15, -30, 15));
 			} else if (type === 2) {
-				graphic.drawPolygon([-15, -30, -15, 0, 15, 15, -30, 15]);
+				const polygon = new Phaser.Geom.Polygon([-15, -30, -15, 0, 15, 15, -30, 15]);
+				graphic.fillPoints(polygon.points, true)
 			} else {
-				graphic.drawEllipse(0, 0, 30, 15);
+				graphic.fillEllipseShape(new Phaser.Geom.Ellipse(0, 0, 60, 30));
 			}
 
-			graphic.position.set(Math.random() * this._app.screen.width, Math.random() * this._app.screen.height);
-
-			this._app.stage.addChild(graphic);
+			graphic.x = Math.random() * this._app.screen.width;
+			graphic.y = Math.random() * this._app.screen.height
 		}
 	}
 
@@ -51,6 +51,6 @@ export default class GraphicsComplex extends IScene {
 			);
 		}
 
-		return polygon;
+		return new Phaser.Geom.Polygon(polygon);
 	}
 }

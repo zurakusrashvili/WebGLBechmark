@@ -30,19 +30,9 @@ export default class BitmapTextCounting extends IScene {
 		}
 
 		for (let i = this._children.length; i < objectCount; ++i) {
-			const text = this._app.game.add.bitmapText(0, 0, 'Desyrel', 'WebGL', 35);
-			text.align = 'center';
-			if (text.anchor) {
-				text.anchor.set(0.5);
-			} else { // for early v2
-				for (let i = 0; i < text.children.length; ++i) {
-					text.children[i].x -= text.textWidth * 0.5;
-					text.children[i].y -= text.textHeight * 0.5;
-				}
-			}
-			text.position.set(Math.random() * this._app.screen.width, Math.random() * this._app.screen.height);
-
-			this._app.stage.addChild(text);
+			const text = this._app.scene.add.bitmapText(0, 0, 'Desyrel', 'WebGL', 35, 'center');
+			text.setOrigin(0.5);
+			text.setPosition(Math.random() * this._app.screen.width, Math.random() * this._app.screen.height);
 		}
 	}
 

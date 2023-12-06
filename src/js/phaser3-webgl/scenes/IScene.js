@@ -3,12 +3,10 @@ export default class IScene {
 		this._app = app;
 		this._gui = gui;
 
-		this._children = this._app.stage.children;
+		this._children = this._app.scene.children.list;
 
 		this.title = '';
 		this.description = '';
-
-		this._last
 
 		this._targetMS = 1000 / 60;
 	}
@@ -17,17 +15,13 @@ export default class IScene {
 		console.log(`Scene Changed: ${this.title}`);
 		console.log(this.description);
 
-		this._app.game.state.update = () => {
-			// 2.0.x and 2.1.x have used elapsed rather than elapsedMS
-			const delta = (this._app.game.time.elapsedMS || this._app.game.time.elapsed) / this._targetMS;
-			this._update(delta);
-		}
+		this._app.scene.sys.events.on('update', this._callUpdate, this);
 
 		this._create(objectCount);
 	}
 
 	stop() {
-		this._app.game.state.update = () => { };
+		this._app.scene.sys.events.off('update', this._callUpdate, this);
 
 		this._destroy();
 	}
@@ -40,7 +34,12 @@ export default class IScene {
 		}
 	}
 
-	_update(delta = 0) {
+	_callUpdate(time, deltaMS) {
+		const delta = deltaMS / this._targetMS;
+		this._update(delta);
+	}
+
+	_update(delta) {
 		for (let i = 0; i < this._children.length; ++i) {
 			this._children[i].rotation += 0.05 * delta;
 		}

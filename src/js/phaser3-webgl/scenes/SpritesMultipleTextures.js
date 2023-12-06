@@ -14,12 +14,9 @@ export default class SpritesSingleTexture extends IScene {
 
 	_create(objectCount) {
 		for (let i = this._children.length; i < objectCount; ++i) {
-			const sprite = this._app.game.add.sprite(0, 0, `images/bunny${this._bunnyIndex}.png`);
+			const sprite = this._app.scene.add.sprite(0, 0, `images/bunny${this._bunnyIndex}.png`);
 			this._bunnyIndex === 12 ? this._bunnyIndex = 1 : ++this._bunnyIndex;
-			sprite.anchor.set(0.5);
-			sprite.position.set(Math.random() * this._app.screen.width, Math.random() * this._app.screen.height);
-
-			this._app.stage.addChild(sprite);
+			sprite.setPosition(Math.random() * this._app.screen.width, Math.random() * this._app.screen.height);
 		}
 	}
 }

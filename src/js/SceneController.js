@@ -1,7 +1,7 @@
 import storage from './storage.js';
 
 import pixiScenes from './pixi/scenes.js'
-import phaser2Scenes from './phaser2/scenes.js'
+import phaser2Scenes from './phaser3-webgl/scenes.js'
 import phaser3Scenes from './phaser3/scenes.js'
 
 export default class SceneController {
@@ -13,7 +13,7 @@ export default class SceneController {
 		this._scenes = [];
 
 		let sceneList;
-		if (storage.get('library') === 'Phaser2') {
+		if (storage.get('library') === 'Phaser32') {
 			sceneList = phaser2Scenes;
 		} else if (storage.get('library') === 'Phaser3') {
 			sceneList = phaser3Scenes;

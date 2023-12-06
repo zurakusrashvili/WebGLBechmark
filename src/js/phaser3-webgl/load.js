@@ -1,5 +1,3 @@
-import polyfillPhaser2 from '../../vendor/polyfill-phaser2.js';
-
 import loadScript from '../loadScript.js';
 import storage from '../storage.js';
 import App from './App.js';
@@ -7,15 +5,11 @@ import App from './App.js';
 export default function loadPhaser(stats, gui) {
 	let resolvePromise;
 
-	const v2Offical = [
-		"2.0.7", "2.1.3", "2.2.2", "2.3.0", "2.4.9", "2.5.0", "2.6.2"
-	];
-	const v2Community = [
-		"2.7.10", "2.8.8", "2.9.4", "2.10.6", "2.11.1", "2.12.1", "2.13.3", "2.14.0", "2.15.1", "2.16.2", "2.17.0", "2.18.0", "2.19.2"
-	];
 	const versions = [
-		...v2Offical,
-		...v2Community
+		"3.0.0", "3.1.2", "3.2.1", "3.3.0", "3.4.0", "3.5.1", "3.6.1", "3.7.1", "3.8.0", "3.9.0",
+		"3.10.1","3.11.0", "3.12.0", "3.13.0", "3.14.0", "3.15.1", "3.16.2", "3.17.0", "3.18.1", "3.19.0",
+		"3.20.1", "3.21.0", "3.22.0", "3.23.0", "3.24.1",
+		"3.50.1", "3.51.0", "3.52.0", "3.53.1", "3.54.0", "3.55.2"
 	].reverse();
 
 	const guiData = {
@@ -31,14 +25,7 @@ export default function loadPhaser(stats, gui) {
 		window.location.href = storage.url().href;
 	});
 
-	let versionMatch = guiData.version.match(/(\d+).(\d+).(\d+)/);
-	let isOfficialVersion = !versionMatch || versionMatch[2] < 7;
-	let libUrl = '';
-	if (isOfficialVersion) {
-		libUrl = `https://cdnjs.cloudflare.com/ajax/libs/phaser/${guiData.version}/phaser.min.js`;
-	} else {
-		libUrl = `https://cdn.jsdelivr.net/npm/phaser-ce@${guiData.version}`;
-	}
+	let libUrl = `https://cdn.jsdelivr.net/npm/phaser@${guiData.version}/dist/phaser.min.js`;
 
 	loadScript(libUrl)
 		.catch(() => {
@@ -46,8 +33,6 @@ export default function loadPhaser(stats, gui) {
 		})
 		.then(() => {
 			if (window.Phaser) {
-				polyfillPhaser2();
-
 				new App(resolvePromise, stats);
 			}
 		});
